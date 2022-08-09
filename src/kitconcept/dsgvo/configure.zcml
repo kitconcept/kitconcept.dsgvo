@@ -55,82 +55,32 @@
       />
 
 
-  <!-- Plone 5 -->
-  <configure zcml:condition="have plone-5">
+  <genericsetup:registerProfile
+      name="default"
+      title="kitconcept.dsgvo"
+      description="Installs the kitconcept.dsgvo add-on in Plone 5."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/plone5"
+      post_handler=".setuphandlers.post_install"
+      />
 
-    <genericsetup:registerProfile
-        name="default"
-        title="kitconcept.dsgvo"
-        description="Installs the kitconcept.dsgvo add-on in Plone 5."
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        directory="profiles/plone5"
-        post_handler=".setuphandlers.post_install"
-        />
+  <!-- Contact form extender -->
+  <adapter
+      factory=".contactform.ContactFormExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
+      />
 
-    <!-- Contact form extender -->
-    <adapter
-        factory=".contactform.ContactFormExtender"
-        provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
-        />
+  <!-- User data schema and form adapters -->
+  <adapter
+      factory=".userdataschema.RegistrationPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
+      />
 
-    <!-- User data schema and form adapters -->
-    <adapter
-        factory=".userdataschema.RegistrationPanelExtender"
-        provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
-        />
-
-    <adapter
-        factory=".userdataschema.DsgvoUserDataSchemaAdapter"
-        provides=".userdataschema.IDsgvoUserDataSchema"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        />
-
-  </configure>
-
-  <!-- Plone 4 -->
-  <configure zcml:condition="not-have plone-5">
-
-    <adapter
-        factory=".userdataschema_p4.DsgvoP4UserDataSchemaAdapter"
-        provides=".userdataschema_p4.IDsgvoP4UserDataSchema"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        />
-
-    <browser:page
-        name="personal-information"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        class=".userdataschema_p4.DsgvoUserDataPanel"
-        permission="cmf.SetOwnProperties"
-        layer=".interfaces.IKitconceptDsgvoLayer"
-        />
-
-    <browser:page
-        name="user-information"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        class=".userdataschema_p4.DsgvoUserDataConfiglet"
-        permission="plone.app.controlpanel.UsersAndGroups"
-        layer=".interfaces.IKitconceptDsgvoLayer"
-        />
-
-    <genericsetup:registerProfile
-        name="default"
-        title="kitconcept.dsgvo"
-        description="Installs the kitconcept.dsgvo add-on in Plone 4."
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        directory="profiles/plone4"
-        post_handler=".setuphandlers.post_install"
-        />
-
-    <!-- Registration form -->
-    <browser:page
-        name="register"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        class=".userdataschema_p4.EnhancedRegistrationForm"
-        permission="cmf.AddPortalMember"
-        layer=".interfaces.IKitconceptDsgvoLayer"
-        />
-
-  </configure>
+  <adapter
+      factory=".userdataschema.DsgvoUserDataSchemaAdapter"
+      provides=".userdataschema.IDsgvoUserDataSchema"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      />
 
 
   <!-- Widget -->

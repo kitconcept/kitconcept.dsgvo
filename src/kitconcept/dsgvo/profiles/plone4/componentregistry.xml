@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<componentregistry>
-  <adapters />
-  <utilities>
-    <utility factory="kitconcept.dsgvo.userdataschema_p4.EnhancedUserDataSchemaProvider"
-             interface="plone.app.users.userdataschema.IUserDataSchemaProvider"
-    />
-  </utilities>
-</componentregistry>
