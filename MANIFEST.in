@@ -1,6 +1,7 @@
 graft src/kitconcept
 graft docs
 include *.rst
+include *.md
 exclude *.png
 exclude *.txt
 exclude Makefile
