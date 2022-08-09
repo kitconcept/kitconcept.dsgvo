@@ -5,9 +5,9 @@ from setuptools import setup
 
 long_description = "\n\n".join(
     [
-        open("README.rst").read(),
-        open("CONTRIBUTORS.rst").read(),
-        open("CHANGES.rst").read(),
+        open("README.md").read(),
+        open("CONTRIBUTORS.md").read(),
+        open("CHANGELOG.md").read(),
     ]
 )
 
@@ -17,12 +17,13 @@ setup(
     version="2.0.1.dev0",
     description="DSGVO / GDPR compliance for Plone",
     long_description=long_description,
-    # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    long_description_content_type="text/markdown",
     classifiers=[
         "Environment :: Web Environment",
         "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
         "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 6.0",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
@@ -38,6 +39,7 @@ setup(
     packages=find_packages("src", exclude=["ez_setup"]),
     namespace_packages=["kitconcept"],
     package_dir={"": "src"},
+    python_requires=">=3.7",
     include_package_data=True,
     zip_safe=False,
     install_requires=[
@@ -54,6 +56,8 @@ setup(
             "plone.app.contenttypes",
             "plone.app.robotframework[debug]",
             "collective.mailchimp",
+            "zest.releaser[recommended]",
+            "zestreleaser.towncrier",
         ],
     },
     entry_points="""

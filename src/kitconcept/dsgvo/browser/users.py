@@ -1,7 +1,7 @@
 from datetime import datetime
+from io import StringIO
 from plone import api
 from Products.Five.browser import BrowserView
-from io import StringIO
 
 import csv
 

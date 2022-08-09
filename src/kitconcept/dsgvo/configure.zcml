@@ -10,8 +10,7 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <includeDependencies package="." />
-  <include package="plone.app.z3cform" />
+  <include file="dependencies.zcml" />
   <include package=".browser" />
 
 

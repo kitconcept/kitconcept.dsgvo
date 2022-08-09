@@ -1,44 +1,41 @@
-name: Tests
+
+name: Test the code
+
 on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.9, 3.8, 3.7, 3.6]
-        plone-version: [5.2]
+        python:
+          - 3.7
+          - 3.8
+          - 3.9
+        plone:
+          - "6.0-latest"
+          - "5.2-latest"
+        exclude:
+          - plone: "5.2-latest"
+            python: 3.9
 
     steps:
-      # git checkout
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      # python setup
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
+    - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
+      id: setup
+      uses: plone/setup-plone@v1.0.0
+      with:
+        python-version: ${{ matrix.python }}
+        plone-version: ${{ matrix.plone }}
 
-      # python cache
-      - uses: actions/cache@v1
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+    # Install kitconcept.api with test extras
+    - name: Install kitconcept.dsgvo
+      run: |
+        pip install ".[test]"
 
-      # python install
-      - run: pip install virtualenv
-      - run: pip install wheel
-      - name: pip install
-        run: pip install -r requirements.txt
-
-      # buildout
-      - name: buildout
-        run: buildout -t 10 -c plone-${{ matrix.plone-version }}.x.cfg code-analysis:return-status-codes=True
-        env:
-          CI: true
-
-      # test
-      - name: test
-        run: bin/test
+    # test
+    - name: Test Codebase
+      run: |
+        zope-testrunner --auto-color --auto-progress --test-path src
