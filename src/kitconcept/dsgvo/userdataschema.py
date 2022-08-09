@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
+from kitconcept.dsgvo.interfaces import IDsgvoUserDataSchema
+from kitconcept.dsgvo.interfaces import IKitconceptDsgvoLayer
+from kitconcept.dsgvo.widget import DsgvoSingleCheckBoxFieldWidget
 from plone.app.users.browser.account import AccountPanelSchemaAdapter
-from plone.app.users.browser.register import RegistrationForm, AddUserForm
+from plone.app.users.browser.register import AddUserForm
+from plone.app.users.browser.register import RegistrationForm
 from plone.app.users.browser.userdatapanel import UserDataPanel
 from plone.z3cform.fieldsets import extensible
-
 from z3c.form import field
-
 from zope.component import adapts
 from zope.interface import Interface
-
-from kitconcept.dsgvo.interfaces import IKitconceptDsgvoLayer
-from kitconcept.dsgvo.interfaces import IDsgvoUserDataSchema
-from kitconcept.dsgvo.widget import DsgvoSingleCheckBoxFieldWidget
 
 
 class DsgvoUserDataSchemaAdapter(AccountPanelSchemaAdapter):

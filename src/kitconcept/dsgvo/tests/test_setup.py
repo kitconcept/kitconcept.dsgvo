@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from kitconcept.dsgvo.testing import KITCONCEPT_DSGVO_INTEGRATION_TESTING  # noqa
 from plone import api
+
 
 try:
     from Products.CMFPlone.utils import get_installer

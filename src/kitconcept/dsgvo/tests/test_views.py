@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from kitconcept.dsgvo.interfaces import IKitconceptDsgvoLayer
 from kitconcept.dsgvo.testing import KITCONCEPT_DSGVO_INTEGRATION_TESTING  # noqa
 from plone import api
@@ -30,7 +29,7 @@ class ExportUsersTestCase(unittest.TestCase):
         api.user.create(
             email="user@plone.org", username="user", properties={"fullname": "User"}
         )
-        self.assertEquals("Name,Email\r\n,\r\nUser,user@plone.org\r\n", self.view())
+        self.assertEqual("Name,Email\r\n,\r\nUser,user@plone.org\r\n", self.view())
 
     def test_export_users_empty(self):
-        self.assertEquals("Name,Email\r\n,\r\n", self.view())
+        self.assertEqual("Name,Email\r\n,\r\n", self.view())

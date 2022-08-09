@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+from kitconcept.dsgvo.interfaces import IKitconceptDsgvoLayer
+from kitconcept.dsgvo.util import dsgvo_translate
 from z3c.form.browser.checkbox import SingleCheckBoxWidget
 from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import ISingleCheckBoxWidget
@@ -7,9 +8,6 @@ from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import implementer_only
 from zope.schema.interfaces import IBool
-
-from kitconcept.dsgvo.interfaces import IKitconceptDsgvoLayer
-from kitconcept.dsgvo.util import dsgvo_translate
 
 
 class IDsgvoSingleCheckBoxWidget(ISingleCheckBoxWidget):
@@ -24,11 +22,11 @@ class DsgvoSingleCheckBoxWidget(SingleCheckBoxWidget):
     site name
     """
 
-    klass = u"dsgvo-single-checkbox-widget"
+    klass = "dsgvo-single-checkbox-widget"
 
     @property
     def label(self):
-        return getattr(self, "_label", u"")
+        return getattr(self, "_label", "")
 
     @label.setter
     def label(self, value):
@@ -36,7 +34,7 @@ class DsgvoSingleCheckBoxWidget(SingleCheckBoxWidget):
 
     @property
     def description(self):
-        return getattr(self, "_description", u"")
+        return getattr(self, "_description", "")
 
     @description.setter
     def description(self, value):
