@@ -1,3 +1,11 @@
+## 2.0.1 (2022-08-09)
+
+### Features
+
+- Implement pip-based installations @ericof
+  (#26)
+
+
 # Changelog
 
 <!--

@@ -14,7 +14,7 @@ long_description = "\n\n".join(
 
 setup(
     name="kitconcept.dsgvo",
-    version="2.0.1.dev0",
+    version="2.0.1",
     description="DSGVO / GDPR compliance for Plone",
     long_description=long_description,
     long_description_content_type="text/markdown",
