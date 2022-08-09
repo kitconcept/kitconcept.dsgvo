@@ -1,0 +1,29 @@
+name: Check - Changelog
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
+
+      - name: Install dev tools
+        run: pip install towncrier
+
+      - name: Verify if item was created on news/
+        run: towncrier check --compare-with origin/main

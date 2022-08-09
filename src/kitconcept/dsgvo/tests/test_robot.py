@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from kitconcept.dsgvo.testing import KITCONCEPT_DSGVO_ACCEPTANCE_TESTING  # noqa
 from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered

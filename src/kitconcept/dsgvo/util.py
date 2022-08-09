@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
 from Products.CMFPlone.utils import safe_unicode
+
 
 try:
     from cgi import escape
 except ImportError:
     from html import escape
+
 from plone import api
 from zope.component import getMultiAdapter
 from zope.i18n import translate
@@ -16,7 +17,7 @@ def dsgvo_translate(message, request):
     translate the message and interpolate ${site_title} and ${portal_url}
     """
     portal = api.portal.get()
-    portal_state = getMultiAdapter((portal, request), name=u"plone_portal_state")
+    portal_state = getMultiAdapter((portal, request), name="plone_portal_state")
     site_title = escape(safe_unicode(portal_state.navigation_root_title()))
     portal_url = portal_state.portal_url()
 

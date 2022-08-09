@@ -1,36 +1,31 @@
-# -*- coding: utf-8 -*-
-from Products.CMFPlone.browser.contact_info import ContactForm
-
-from plone.supermodel import model
-from plone.z3cform.fieldsets import extensible
-
-from z3c.form import field
-
-from zope import schema
-from zope.component import adapts
-from zope.interface import Interface
-
 from kitconcept.dsgvo import _
 from kitconcept.dsgvo.interfaces import IKitconceptDsgvoLayer
 from kitconcept.dsgvo.widget import DsgvoSingleCheckBoxFieldWidget
+from plone.supermodel import model
+from plone.z3cform.fieldsets import extensible
+from Products.CMFPlone.browser.contact_info import ContactForm
+from z3c.form import field
+from zope import schema
+from zope.component import adapts
+from zope.interface import Interface
 
 
 class IDsgvoContactInfoSchema(model.Schema):
 
     dsgvo_contact_info_text = schema.Bool(
         title=_(
-            u"label_dsgvo_info",
+            "label_dsgvo_info",
             default=(
-                u"Ihre Anfrage wird verschlüsselt per https an unseren "
-                u"Server geschickt. Sie erklären sich damit einverstanden, "
-                u"dass wir die Angaben zur Beantwortung Ihrer Anfrage "
-                u"verwenden dürfen. Hier finden Sie unsere "
-                u'<a href="${portal_url}/datenschutz" '
-                u'target="_blank">Datenschutzerklärung '
-                u"und Widerrufhinweise</a>."
+                "Ihre Anfrage wird verschlüsselt per https an unseren "
+                "Server geschickt. Sie erklären sich damit einverstanden, "
+                "dass wir die Angaben zur Beantwortung Ihrer Anfrage "
+                "verwenden dürfen. Hier finden Sie unsere "
+                '<a href="${portal_url}/datenschutz" '
+                'target="_blank">Datenschutzerklärung '
+                "und Widerrufhinweise</a>."
             ),
         ),
-        description=_(u"help_dsgvo_info", default=u""),
+        description=_("help_dsgvo_info", default=""),
         default=True,
     )
 

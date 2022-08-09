@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from kitconcept.dsgvo.testing import KITCONCEPT_DSGVO_INTEGRATION_TESTING  # noqa
-from plone import api
-
-try:
-    from Products.CMFPlone.utils import get_installer
-except ImportError:
-    get_installer = None
-
+from kitconcept.dsgvo.testing import KITCONCEPT_DSGVO_INTEGRATION_TESTING
+from Products.CMFPlone.utils import get_installer
 
 import unittest
 
@@ -20,14 +13,11 @@ class TestSetup(unittest.TestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer["portal"]
-        if get_installer:
-            self.installer = get_installer(self.portal, self.layer["request"])
-        else:
-            self.installer = api.portal.get_tool("portal_quickinstaller")
+        self.installer = get_installer(self.portal, self.layer["request"])
 
     def test_product_installed(self):
         """Test if kitconcept.dsgvo is installed."""
-        self.assertTrue(self.installer.isProductInstalled("kitconcept.dsgvo"))
+        self.assertTrue(self.installer.is_product_installed("kitconcept.dsgvo"))
 
     def test_browserlayer(self):
         """Test that IKitconceptDsgvoLayer is registered."""
@@ -43,15 +33,12 @@ class TestUninstall(unittest.TestCase):
 
     def setUp(self):
         self.portal = self.layer["portal"]
-        if get_installer:
-            self.installer = get_installer(self.portal, self.layer["request"])
-        else:
-            self.installer = api.portal.get_tool("portal_quickinstaller")
-        self.installer.uninstallProducts(["kitconcept.dsgvo"])
+        self.installer = get_installer(self.portal, self.layer["request"])
+        self.installer.uninstall_product("kitconcept.dsgvo")
 
     def test_product_uninstalled(self):
         """Test if kitconcept.dsgvo is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled("kitconcept.dsgvo"))
+        self.assertFalse(self.installer.is_product_installed("kitconcept.dsgvo"))
 
     def test_browserlayer_removed(self):
         """Test that IKitconceptDsgvoLayer is removed."""

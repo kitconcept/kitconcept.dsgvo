@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
 """
 A viewlet rendering a dsgvo information banner
 """
 
-from plone import api
-from plone.app.layout.viewlets import common as base
-
 from kitconcept.dsgvo import _
 from kitconcept.dsgvo.util import dsgvo_translate
+from plone import api
+from plone.app.layout.viewlets import common as base
 
 
 class DsgvoViewlet(base.ViewletBase):
@@ -17,15 +15,15 @@ class DsgvoViewlet(base.ViewletBase):
 
     def info(self):
         msg = _(
-            u"dsgvo_info_banner",
+            "dsgvo_info_banner",
             default=(
-                u"Um unsere Webseite für Sie optimal zu gestalten und "
-                u"fortlaufend verbessern zu können, verwenden wir Cookies. "
-                u"Durch die weitere Nutzung der Webseite stimmen Sie der "
-                u"Verwendung von Cookies zu. Weitere Informationen zu "
-                u"Cookies erhalten Sie in unserer "
-                u'<a href="${portal_url}/datenschutz" target="_blank">'
-                u"Datenschutzerklärung</a>."
+                "Um unsere Webseite für Sie optimal zu gestalten und "
+                "fortlaufend verbessern zu können, verwenden wir Cookies. "
+                "Durch die weitere Nutzung der Webseite stimmen Sie der "
+                "Verwendung von Cookies zu. Weitere Informationen zu "
+                "Cookies erhalten Sie in unserer "
+                '<a href="${portal_url}/datenschutz" target="_blank">'
+                "Datenschutzerklärung</a>."
             ),
         )
         return dsgvo_translate(msg, self.request)

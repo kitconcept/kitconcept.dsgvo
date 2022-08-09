@@ -1,5 +1,0 @@
-====================
-kitconcept.dsgvo
-====================
-
-User documentation

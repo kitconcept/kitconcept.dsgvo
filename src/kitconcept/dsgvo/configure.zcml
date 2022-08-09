@@ -3,42 +3,45 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:z3c="http://namespaces.zope.org/z3c"
-    i18n_domain="kitconcept.dsgvo">
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="kitconcept.dsgvo"
+    >
 
   <i18n:registerTranslations directory="locales" />
 
-  <includeDependencies package="." />
-  <include package="plone.app.z3cform" />
+  <include file="dependencies.zcml" />
   <include package=".browser" />
 
 
   <genericsetup:registerProfile
       name="install-base"
       title="kitconcept.dsgvo"
-      directory="profiles/common"
       description="Installs the kitconcept.dsgvo add-on common config."
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/common"
       />
 
   <genericsetup:registerProfile
       name="uninstall"
       title="kitconcept.dsgvo (uninstall)"
-      directory="profiles/uninstall"
       description="Uninstalls the kitconcept.dsgvo add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/uninstall"
       post_handler=".setuphandlers.uninstall"
       />
 
   <utility
       factory=".setuphandlers.HiddenProfiles"
-      name="kitconcept.dsgvo-hiddenprofiles" />
+      name="kitconcept.dsgvo-hiddenprofiles"
+      />
 
   <!-- Event subscribers -->
   <subscriber
-      for="* Products.PluggableAuthService.interfaces.events.IPrincipalCreatedEvent"
-      handler=".events.user_registered" />
+      for="*
+           Products.PluggableAuthService.interfaces.events.IPrincipalCreatedEvent"
+      handler=".events.user_registered"
+      />
 
 
   <!-- Viewlet -->
@@ -47,108 +50,60 @@
       manager="plone.app.layout.viewlets.interfaces.IAboveContent"
       class=".viewlet.DsgvoViewlet"
       template="viewlet.pt"
-      layer="kitconcept.dsgvo.interfaces.IKitconceptDsgvoLayer"
       permission="zope2.View"
+      layer="kitconcept.dsgvo.interfaces.IKitconceptDsgvoLayer"
       />
 
 
-  <!-- Plone 5 -->
-  <configure zcml:condition="have plone-5">
-    
-    <genericsetup:registerProfile
-        name="default"
-        title="kitconcept.dsgvo"
-        directory="profiles/plone5"
-        description="Installs the kitconcept.dsgvo add-on in Plone 5."
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        post_handler=".setuphandlers.post_install"
-        />
-
-    <!-- Contact form extender -->
-    <adapter
-        factory=".contactform.ContactFormExtender"
-        provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
-
-    <!-- User data schema and form adapters -->
-    <adapter
-        factory=".userdataschema.RegistrationPanelExtender"
-        provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
-
-    <adapter
-        provides=".userdataschema.IDsgvoUserDataSchema"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        factory=".userdataschema.DsgvoUserDataSchemaAdapter"
-        />
-
-  </configure>
-
-  <!-- Plone 4 -->
-  <configure zcml:condition="not-have plone-5">
-    
-    <adapter
-        provides=".userdataschema_p4.IDsgvoP4UserDataSchema"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        factory=".userdataschema_p4.DsgvoP4UserDataSchemaAdapter"
-        />
-
-    <browser:page
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        name="personal-information"
-        class=".userdataschema_p4.DsgvoUserDataPanel"
-        layer=".interfaces.IKitconceptDsgvoLayer"
-        permission="cmf.SetOwnProperties"
+  <genericsetup:registerProfile
+      name="default"
+      title="kitconcept.dsgvo"
+      description="Installs the kitconcept.dsgvo add-on in Plone 5."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/plone5"
+      post_handler=".setuphandlers.post_install"
       />
 
-    <browser:page
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        name="user-information"
-        class=".userdataschema_p4.DsgvoUserDataConfiglet"
-        layer=".interfaces.IKitconceptDsgvoLayer"
-        permission="plone.app.controlpanel.UsersAndGroups"
+  <!-- Contact form extender -->
+  <adapter
+      factory=".contactform.ContactFormExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
       />
 
-    <genericsetup:registerProfile
-        name="default"
-        title="kitconcept.dsgvo"
-        directory="profiles/plone4"
-        description="Installs the kitconcept.dsgvo add-on in Plone 4."
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        post_handler=".setuphandlers.post_install"
-        />
+  <!-- User data schema and form adapters -->
+  <adapter
+      factory=".userdataschema.RegistrationPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
+      />
 
-    <!-- Registration form -->
-    <browser:page
-        name="register"
-        for="plone.app.layout.navigation.interfaces.INavigationRoot"
-        class=".userdataschema_p4.EnhancedRegistrationForm"
-        layer=".interfaces.IKitconceptDsgvoLayer"
-        permission="cmf.AddPortalMember"
-        />
-
-  </configure>
+  <adapter
+      factory=".userdataschema.DsgvoUserDataSchemaAdapter"
+      provides=".userdataschema.IDsgvoUserDataSchema"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      />
 
 
   <!-- Widget -->
   <z3c:widgetTemplate
-        mode="display"
-        widget=".widget.IDsgvoSingleCheckBoxWidget"
-        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
-        template="templates/checkbox_display.pt"
-        />
+      widget=".widget.IDsgvoSingleCheckBoxWidget"
+      template="templates/checkbox_display.pt"
+      layer="plone.app.z3cform.interfaces.IPloneFormLayer"
+      mode="display"
+      />
 
-    <z3c:widgetTemplate
-        mode="input"
-        widget=".widget.IDsgvoSingleCheckBoxWidget"
-        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
-        template="templates/checkbox_input.pt"
-        />
+  <z3c:widgetTemplate
+      widget=".widget.IDsgvoSingleCheckBoxWidget"
+      template="templates/checkbox_input.pt"
+      layer="plone.app.z3cform.interfaces.IPloneFormLayer"
+      mode="input"
+      />
 
-    <z3c:widgetTemplate
-        mode="hidden"
-        widget=".widget.IDsgvoSingleCheckBoxWidget"
-        layer="plone.app.z3cform.interfaces.IPloneFormLayer"
-        template="templates/checkbox_hidden.pt"
-        />
+  <z3c:widgetTemplate
+      widget=".widget.IDsgvoSingleCheckBoxWidget"
+      template="templates/checkbox_hidden.pt"
+      layer="plone.app.z3cform.interfaces.IPloneFormLayer"
+      mode="hidden"
+      />
 
 
 
@@ -158,8 +113,9 @@
     <!-- Contact form extender -->
     <adapter
         factory=".mailchimp.NewsletterSubscriberFormExtender"
-        provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />    
-    
+        provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
+        />
+
   </configure>
 
 </configure>

@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
-<object name="portal_memberdata" meta_type="Plone Memberdata Tool">
-  <property name="dsgvo_accept" type="boolean">False</property>
-  <property name="dsgvo_registration_date" type="date">2012/12/01</property>
-  <property name="dsgvo_registration_ip" type="string"></property>
+<object meta_type="Plone Memberdata Tool"
+        name="portal_memberdata"
+>
+  <property name="dsgvo_accept"
+            type="boolean"
+  >False</property>
+  <property name="dsgvo_registration_date"
+            type="date"
+  >2012/12/01</property>
+  <property name="dsgvo_registration_ip"
+            type="string"
+  />
 </object>

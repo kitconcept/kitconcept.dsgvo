@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layers>
-  <layer
-      name="kitconcept.dsgvo"
-      interface="kitconcept.dsgvo.interfaces.IKitconceptDsgvoLayer"
-      />
+  <layer interface="kitconcept.dsgvo.interfaces.IKitconceptDsgvoLayer"
+         name="kitconcept.dsgvo"
+  />
 </layers>

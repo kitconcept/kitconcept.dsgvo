@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
-<registry
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="kitconcept.dsgvo">
+<registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="kitconcept.dsgvo"
+>
 
-  <records prefix="plone.resources/kitconcept.dsgvo"
-      interface="Products.CMFPlone.interfaces.IResourceRegistry">
+  <records interface="Products.CMFPlone.interfaces.IResourceRegistry"
+           prefix="plone.resources/kitconcept.dsgvo"
+  >
     <value key="js">++plone++kitconcept.dsgvo/dsgvo.js</value>
     <value key="css">
       <element>++plone++kitconcept.dsgvo/dsgvo.css</element>
     </value>
   </records>
 
-  <records prefix="plone.bundles/kitconcept.dsgvo"
-      interface="Products.CMFPlone.interfaces.IBundleRegistry">
+  <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+           prefix="plone.bundles/kitconcept.dsgvo"
+  >
     <value key="resources">
       <!-- reference to bundle resource definition -->
       <element>kitconcept.dsgvo</element>

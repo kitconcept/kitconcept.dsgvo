@@ -3,10 +3,14 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    i18n_domain="kitconcept.dsgvo">
+    i18n_domain="kitconcept.dsgvo"
+    >
 
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
-  <include package="z3c.jbot" file="meta.zcml" />
+  <include
+      package="z3c.jbot"
+      file="meta.zcml"
+      />
   <browser:jbot
       directory="overrides"
       layer="kitconcept.dsgvo.interfaces.IKitconceptDsgvoLayer"
@@ -29,13 +33,13 @@
 
   <plone:static
       directory="static"
-      type="plone"
       name="kitconcept.dsgvo"
+      type="plone"
       />
 
   <browser:page
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       name="export-users"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class=".users.ExportUsers"
       permission="cmf.ManagePortal"
       layer="kitconcept.dsgvo.interfaces.IKitconceptDsgvoLayer"

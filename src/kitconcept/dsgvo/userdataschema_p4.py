@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-
+from kitconcept.dsgvo import _
+from kitconcept.dsgvo.util import dsgvo_translate
 from plone.app.form.widgets.checkboxwidget import CheckBoxWidget
 from plone.app.users.browser.personalpreferences import UserDataConfiglet
 from plone.app.users.browser.personalpreferences import UserDataPanel
@@ -7,28 +7,24 @@ from plone.app.users.browser.personalpreferences import UserDataPanelAdapter
 from plone.app.users.browser.register import RegistrationForm
 from plone.app.users.userdataschema import IUserDataSchema
 from plone.app.users.userdataschema import IUserDataSchemaProvider
-
 from zope import schema
 from zope.i18nmessageid import Message
 from zope.interface import implementer
-
-from kitconcept.dsgvo import _
-from kitconcept.dsgvo.util import dsgvo_translate
 
 
 class DsgvoCheckboxWidget(CheckBoxWidget):
     def __call__(self):
         if isinstance(self.context.title, Message):
             self.context.title = dsgvo_translate(self.context.title, self.request)
-        return super(DsgvoCheckboxWidget, self).__call__()
+        return super().__call__()
 
 
 class InvalidAccept(schema.ValidationError):
 
     __doc__ = _(
-        u"label_dsgvo_accept_invalid",
+        "label_dsgvo_accept_invalid",
         default=(
-            u"Bitte akzeptieren sie die Datenschutzerklärung und " u"Widerrufhinweise."
+            "Bitte akzeptieren sie die Datenschutzerklärung und " "Widerrufhinweise."
         ),
     )
 
@@ -46,22 +42,22 @@ class IDsgvoP4UserDataSchema(IUserDataSchema):
 
     dsgvo_accept = schema.Bool(
         title=_(
-            u"label_dsgvo_accept",
+            "label_dsgvo_accept",
             default=(
-                u'Ich habe die <a href="${portal_url}/datenschutz" '
-                u'target="_blank">'
-                u"Datenschutzerklärung und Widerrufhinweise</a> "
-                u"gelesen und akzeptiere diese."
+                'Ich habe die <a href="${portal_url}/datenschutz" '
+                'target="_blank">'
+                "Datenschutzerklärung und Widerrufhinweise</a> "
+                "gelesen und akzeptiere diese."
             ),
         ),
-        description=_(u"help_dsgvo_accept", default=u""),
+        description=_("help_dsgvo_accept", default=""),
         required=True,
         constraint=validateAccept,
     )
 
 
 @implementer(IUserDataSchemaProvider)
-class EnhancedUserDataSchemaProvider(object):
+class EnhancedUserDataSchemaProvider:
     def getSchema(self):
         """"""
         return IDsgvoP4UserDataSchema
@@ -69,7 +65,7 @@ class EnhancedUserDataSchemaProvider(object):
 
 class EnhancedRegistrationForm(RegistrationForm):
     def __init__(self, context, request):
-        super(EnhancedRegistrationForm, self).__init__(context, request)
+        super().__init__(context, request)
 
     @property
     def form_fields(self):
@@ -77,7 +73,7 @@ class EnhancedRegistrationForm(RegistrationForm):
         form_fields in the registration form is a property. We cannot
         modify self.form_fields.
         """
-        form_fields = super(EnhancedRegistrationForm, self).form_fields
+        form_fields = super().form_fields
         form_fields["dsgvo_accept"].custom_widget = DsgvoCheckboxWidget
         return form_fields
 
@@ -94,11 +90,11 @@ class DsgvoP4UserDataSchemaAdapter(UserDataPanelAdapter):
 
 class DsgvoUserDataPanel(UserDataPanel):
     def __init__(self, context, request):
-        super(DsgvoUserDataPanel, self).__init__(context, request)
+        super().__init__(context, request)
         self.form_fields = self.form_fields.omit("dsgvo_accept")
 
 
 class DsgvoUserDataConfiglet(UserDataConfiglet):
     def __init__(self, context, request):
-        super(DsgvoUserDataConfiglet, self).__init__(context, request)
+        super().__init__(context, request)
         self.form_fields = self.form_fields.omit("dsgvo_accept")
