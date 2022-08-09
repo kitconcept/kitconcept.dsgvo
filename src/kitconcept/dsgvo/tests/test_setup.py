@@ -1,8 +1,6 @@
 """Setup tests for this package."""
 from kitconcept.dsgvo.testing import KITCONCEPT_DSGVO_INTEGRATION_TESTING
-from plone import api
 from Products.CMFPlone.utils import get_installer
-
 
 import unittest
 
