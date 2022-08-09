@@ -17,7 +17,7 @@ exclude = '''
 [tool.towncrier]
 package = "kitconcept.dsgvo"
 package_dir = "src"
-filename = "CHANGES.md"
+filename = "CHANGELOG.md"
 directory = "news/"
 title_format = "## {version} ({project_date})\n"
 start_string = "<!-- TOWNCRIER -->\n"
